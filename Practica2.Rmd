@@ -417,8 +417,15 @@ titanic_corr <- fastDummies::dummy_cols(titanic_clean, select_columns = c('Sex',
 
 ```{r,eval=TRUE,echo=TRUE}
 # calculo la correlacion 
-corr <- cor(titanic_corr[, c('Age','Survived','Sex_male','Sex_female','Pclass','SibSp','Parch','Fare','Embarked_C','Embarked_Q','Embarked_S')])
+#corr <- cor(titanic_corr[, c('Age','Survived','Sex_male','Sex_female','Pclass','SibSp','Parch','Fare','Embarked_C','Embarked_Q','Embarked_S')])
 ```
+
+
+```{r,eval=TRUE,echo=TRUE}
+# calculo la correlacion 
+corr <- cor(titanic_corr[, c('Age','SibSp','Parch','Fare')])
+```
+
 
 ```{r,eval=TRUE,echo=TRUE}
 ggcorrplot(corr, outline.col = "black", lab=TRUE)
@@ -436,14 +443,28 @@ Si observamos la correlación de las variables independientes y la variable depe
 ### Contraste de hipotesis
 ******
 
-Dado que se cumplen las condiciones de normalidad y homocedasticidad, se aplica la prueba t de Student, comprobando que no existen diferencias significativas entre los grupos de datos (p-valor > 0,05).
+https://biocosas.github.io/R/060_analisis_datos_categoricos.html
+
+Dado que se cumplen las condiciones de normalidad y homocedasticidad, se aplica la prueba chisquare, para comprobar si existe una relacion significativaentre los grupos de datos (p-valor < 0,05).
+
+
+```{r,eval=TRUE,echo=TRUE}
+tabla <- table(titanic_clean$Survived, titanic_clean$Sex)
+tabla
+```
+
+```{r,eval=TRUE,echo=TRUE}
+plot(tabla, col = c("red", "blue"), main = "Survived vs. Sex")
+```
 
 ```{r,eval=TRUE,echo=TRUE}
 #verificamos la relacion entre Survived y Sex
-t.test(titanic_clean$Survived ~ titanic_clean$Sex)
+chisq.test(tabla)
 ```
 
-Dado que el p valor es inferior al valor de alfa, podemos decir que el sexo afecta a la supervivencia, ya que parece que el genero es un buen indicador.
+Dado que el p valor es inferior al valor de alfa, con el nivel de significacion de 0.05 podemos rechazar la hipotesis nula, por lo que podemos considerar que el sexo afecta a la supervivencia, ya que parece que el genero es un buen indicador.
+
+
 
 ******
 ### Aplicacion de la regresion logistica
