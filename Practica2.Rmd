@@ -107,7 +107,7 @@ colSums(is.na(titanic_clean))
 ```
 
 como vemos, tenemos 177 edades con el valor NA, lo que representa a pasajeros con edad desconocida. para poder mantener la calidad del análisis posterior, decidimos imputar estos valores por los obtenidos apliando el metodo KNN
-   asasasass
+
 
 ```{r,eval=TRUE,echo=TRUE}
 #cargamos la libreria
