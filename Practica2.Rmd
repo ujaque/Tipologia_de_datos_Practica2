@@ -109,10 +109,13 @@ colSums(is.na(titanic_clean))
 como vemos, tenemos 177 edades con el valor NA, lo que representa a pasajeros con edad desconocida. para poder mantener la calidad del análisis posterior, decidimos modificar estos valores por la media calculada del resto de pasajeros
 
 
+```{r,eval=TRUE,echo=TRUE}
+suppressWarnings(suppressMessages(library(VIM)))
+#titanic_clean$Age[is.na(titanic_clean$Age)] <- mean(titanic_clean$Age,na.rm=T)
+```
 
 ```{r,eval=TRUE,echo=TRUE}
-# Tomamos la media para valores NA de la variable "Age"
-titanic_clean$Age[is.na(titanic_clean$Age)] <- mean(titanic_clean$Age,na.rm=T)
+titanic_clean$Age <- kNN(titanic_clean)$Age
 ```
 
 ```{r,eval=TRUE,echo=TRUE}
