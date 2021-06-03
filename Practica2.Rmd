@@ -39,7 +39,7 @@ str(titanic_data)
 
 Aunque hay algunas columnas que podríamos convertir a factor, de momento dejamos como ha leído por defecto r el tipo de datos  
 
-El dataset que vamos a analizar es el dataset con los pasajeros del titanic. En el que partiendo de un dataset de entrenamiento (train.csv) con un conjunto de pasajeros, intentaremos responder a la pregunta o predecir que pasajeros del conjunto de test (test.csv) sobrevivirán
+El dataset que vamos a analizar es el dataset con los pasajeros del titanic. En el que partiendo de un dataset de entrenamiento (train.csv) con un conjunto de pasajeros, intentaremos responder a la pregunta o predecir que pasajeros del conjunto de test (test.csv) sobrevivirán.
 El dataset esta formado por 12 atributos que presentan 891 pasajeros. Encontramos los siguientes campos en el dataset:  
 
 * PassengerId:  Identificador del pasajero
@@ -62,7 +62,7 @@ El dataset esta formado por 12 atributos que presentan 891 pasajeros. Encontramo
 # Integración y selección de los datos de interés a analizar.
 ******
 
-Lo primero que realizamos es verificar si existen duplicados en el dataset, ya que no tendría sentido tener en nuestro conjunto de datos que una persona ha sobrevivido dos veces o ha muerto dos veces. Por tanto, primero obtendremos el numero de lineas del dataset y posteriormente lo compararemos con el numero de elementos únicos del dataset
+Lo primero que realizamos es verificar si existen duplicados en el dataset, ya que no tendría sentido tener en nuestro conjunto de datos que una persona ha sobrevivido dos veces o ha muerto dos veces. Por tanto, primero obtendremos el número de lineas del dataset y posteriormente lo compararemos con el número de elementos únicos del dataset
 
 ```{r,eval=TRUE,echo=TRUE}
 #numero de elementos del dataset
@@ -70,14 +70,14 @@ nrow(titanic_data)
 ```
 
 ```{r,eval=TRUE,echo=TRUE}
-#numero de elementos unicos del dataset
+#número de elementos unicos del dataset
 nrow(unique(titanic_data))
 ```
 
 Como vemos, no tenemos duplicados en el dataset.
 
 
-Despues de realizar un breve analisis de los datos, determinamos que el nombre del pasajero y la columna ID no son relevante para el analisis por lo que lo eliminamos de nuestro dataset.
+Después de realizar un breve análisis de los datos, determinamos que el nombre del pasajero y la columna ID no son relevante para el análisis por lo que lo eliminamos de nuestro dataset.
 
 
 ```{r,eval=TRUE,echo=TRUE}
@@ -169,6 +169,7 @@ table(titanic_clean$Survived)
 ```
 
 Es una variable categórica y como vemos, solo tenemos dos posibles resultados [0,1], no sobrevive o sobrevive
+
 ******
 ### Análisis de la variable Pclass
 ******
@@ -177,6 +178,7 @@ table(titanic_clean$Pclass)
 ```
 
 Es una variable categórica y como vemos, solo tenemos tres posibles resultados, primera, segunda o tercera
+
 ******
 ### Análisis de la variable Sex
 ******
@@ -185,6 +187,7 @@ table(titanic_clean$Sex)
 ```
 
 Es una variable categórica y como vemos, solo tenemos dos posible resultados hombre o mujer
+
 ******
 ### Análisis de la variable Age
 ******
@@ -201,7 +204,9 @@ boxplot.stats(titanic_clean$Age)
 
 Como vemos hay bastantes valores de edad de pasajeros que aparentemente podrían considerarse outiers. la mayor parte de los pasajeros tienen edades comprendidas entre los 22 y 35 años. Después de analizar los outliers decidimos dejar los pasajeros con edades consideradas como outliers ya que son edades validas. Las edades muy pequeñas representan a bebes y niños y las grande pertenecen a gente mayor que también formaba parte de los pasajeros.
 
+******
 ### Análisis de la variable SibSp
+******
 
 ```{r,eval=TRUE,echo=TRUE}
 table(titanic_clean$SibSp)
@@ -209,8 +214,9 @@ table(titanic_clean$SibSp)
 
 Como vemos, la mayor parte de los pasajeros viajaban solos sin hermanos/as esposos/as
 
+******
 ### Análisis de la variable Parch
-
+******
 
 ```{r,eval=TRUE,echo=TRUE}
 table(titanic_clean$Parch)
@@ -219,8 +225,9 @@ table(titanic_clean$Parch)
 como vemos, la mayor parte de los pasajeros viajaban solos sin padres o hijos
 
 
-
+******
 ### Análisis de la variable Fare
+******
 
 ```{r,eval=TRUE,echo=TRUE}
 boxplot(titanic_clean$Fare)
@@ -233,19 +240,21 @@ boxplot.stats(titanic_clean$Fare)
 
 Como vemos, la mayor parte del pasaje tenia tickets con un precio bajo. Los outliers que encontramos con precios muy por encima de la media podrían pertenecer a pasajeros que viajaban en los mejores camarotes y con una serie de servicios extras que podrían ser de lujo. Después de este razonamiento decidimos no eliminar los outliers de esta columna.
 
-
+******
 ### Análisis de la variable Embarked
+******
 
 
 ```{r,eval=TRUE,echo=TRUE}
 table(titanic_clean$Embarked)
 ```
 
-Vemos como estos datos pertenecen a los distintos puertos en los que se embarco, a excepción de los catalogados como unknown que no se sabe donde lo hicieron
+Vemos como estos datos pertenecen a los distintos puertos en los que se embarcó, a excepción de los catalogados como unknown que no se sabe donde lo hicieron
 
 
+******
 ### Análisis de la variable Ticket
-
+******
 
 
 ```{r,eval=TRUE,echo=TRUE}
@@ -294,7 +303,7 @@ colSums(is.na(titanic_clean))
 ## Selección de los grupos de datos que se quieren analizar/comparar (planificación de los análisis a aplicar).
 ******
 
-Del conjunto de datos "test.csv" queremos verificar que pasajeros sobrevivieron, por tanto, realizaremos un modelo usando como variable dependiente "Survived" y verificaremos que variables dependientes maximizan la bondad del modelo. Para el desarrollo del modelo haremos uso del dataset de entrenamiento "train.csv" 
+Del conjunto de datos "test.csv" queremos verificar que pasajeros sobrevivieron, por tanto, realizaremos un modelo usando como variable dependiente "Survived" y verificaremos que variables independientes maximizan la bondad del modelo. Para el desarrollo del modelo haremos uso del dataset de entrenamiento "train.csv" 
 
 ******
 ## Comprobación de la normalidad y homogeneidad de la varianza.
@@ -304,7 +313,7 @@ Asumiendo como hipótesis nula que la población está distribuida normalmente,
 
 
 
-###Realizao un analisis de normalidad de las variables cuantitavas de forma grafica y aplicando los metodos para verficar la normalidad
+Realizo un análisis de normalidad de las variables cuantitativas de forma grafica y aplicando los métodos para verificar la normalidad
 
 #### Age
 ```{r,eval=TRUE,echo=TRUE}
@@ -385,8 +394,8 @@ En nuestro caso al disponer de una muestra de 891 muestras podemos afirmar que n
 ### Homogeneidad
 
 
-Comprobación de la homocedasticidad
-Asimismo, algunas pruebas estadísticas requieren la comprobación previa de la homocedasticidad en los datos, es decir, de la igualdad de varianzas entre los grupos que se van a comparar. Entre las pruebas más habituales se encuentra el test de Levene, que se aplica cuando los datos siguen una distribución normal, así́ como el test de Fligner-Killeen, que se trata de la alternativa no paramétrica, utilizada cuando los datos no cumplen con la condición de normalidad. En ambas pruebas, la hipótesis nula asume igualdad de varianzas en los diferentes grupos de datos, por lo que p-valores inferiores al nivel de significancia indicaran heterocedasticidad.
+Comprobación de la homocedasticidad. 
+Algunas pruebas estadísticas requieren la comprobación previa de la homocedasticidad en los datos, es decir, de la igualdad de varianzas entre los grupos que se van a comparar. Entre las pruebas más habituales se encuentra el test de Levene, que se aplica cuando los datos siguen una distribución normal, así́ como el test de Fligner-Killeen, que se trata de la alternativa no paramétrica, utilizada cuando los datos no cumplen con la condición de normalidad. En ambas pruebas, la hipótesis nula asume igualdad de varianzas en los diferentes grupos de datos, por lo que p-valores inferiores al nivel de significancia indicaran heterocedasticidad.
 
 Aplico el test para verificar la homogeneidad entre Survived y Age
 
@@ -402,7 +411,7 @@ Puesto que hemos obtenido un p-valor superior a 0.05, aceptamos la hipótesis de
 ******
 
 ******
-###Correlacion
+### Correlacion
 ******
 
 Ya que nos gustaría conocer si un pasajero del Titanic puede sobrevivir o no, vamos a comprobar cual es la correlación de la variable dependiente *Survived* con las variables independientes del dataset.
@@ -431,21 +440,17 @@ corr <- cor(titanic_corr[, c('Age','SibSp','Parch','Fare')])
 ggcorrplot(corr, outline.col = "black", lab=TRUE)
 ```
 
-Si observamos la correlación de las variables independientes y la variable dependiente (Survived), podemos observar como en general no existe un grado de correlación:  
-*Podríamos hay que destacar la correlación con el sex (0.54) lo que nos indica que ser hombre o mujer puede ser determinante a la hora de sobrevivir.
-*También vemos como Pclass tiene un grado de correlación mayor que el resto, esto podría ser vinculado a que pasajeros viajando en mejores clases a priori tendrían mas posibilidades de sobrevivir.
-* También vemos como Fare esta relacionado directamente con Pclass, como era de esperar encontrarnos en una clase determinada va a asociado a un mayor o menor gasto por el precio del billete
-* También existe una alta correlación entre los pasajeros que embarcaron en el puerto Q y en S, la cual no soy capaz de identificar.
+
+Se observa una minima correlacion (0.41) entre Parch y SibSp
 
 
 
 ******
-### Contraste de hipotesis
+### Contraste de hipótesis
 ******
 
-https://biocosas.github.io/R/060_analisis_datos_categoricos.html
 
-Dado que se cumplen las condiciones de normalidad y homocedasticidad, se aplica la prueba chisquare, para comprobar si existe una relacion significativaentre los grupos de datos (p-valor < 0,05).
+Dado que se cumplen las condiciones de normalidad y homocedasticidad, se aplica la prueba chis quare, para comprobar si existe una relación significativa entre los grupos de datos Survived y Sex (p-valor < 0,05).
 
 
 ```{r,eval=TRUE,echo=TRUE}
@@ -462,12 +467,12 @@ plot(tabla, col = c("red", "blue"), main = "Survived vs. Sex")
 chisq.test(tabla)
 ```
 
-Dado que el p valor es inferior al valor de alfa, con el nivel de significacion de 0.05 podemos rechazar la hipotesis nula, por lo que podemos considerar que el sexo afecta a la supervivencia, ya que parece que el genero es un buen indicador.
+Dado que el p valor es inferior al valor de alfa, con el nivel de significación de 0.05 podemos rechazar la hipótesis nula, por lo que podemos considerar que el sexo afecta a la supervivencia, ya que parece que el género es un buen indicador.
 
 
 
 ******
-### Aplicacion de la regresion logistica
+### Aplicacion de la regresión logística
 ******
 
 ```{r,eval=TRUE,echo=TRUE}
@@ -516,10 +521,11 @@ Vamos a calcular el odds-ratio de cada una de las variables que hemos utilizado 
 exp(coefficients(modelo))
 ```
 
-Según los valores obtenidos podemos decir que:
-*Pclass igual a 1, es decir lo pasajeros que viajaban en primera tienen menos probabilidades de no sobrevivir. pasajeros de Pclass 3 multiplicarían por 3 sus probabilidades de no sobrevivir, esto tendría sentido y estaría asociado a los pasajeros que disponen de los peores camarotes que normalmente son los que se encuentran en las plantas inferiores del barco.
-*El ser hombre como vemos reduce las posibilidades de sobrevivir respecto al resto de factores ya que como vemos se representan por un valor muy bajo.
-*Los factores que tienen un impacto mayor (odd-ratio mayor) en la predicción de si sobrevivirían o no son la Edad y si tenían hermanos/as o esposas parece que incrementa las posibilidades de sobrevivir en el modelo. Por tanto, a mayor edad y mayor numero de hermanos/as o esposas/os se incrementan las posibilidades de sobrevivir
+Según los valores obtenidos podemos decir que:  
+
+* Pclass igual a 1, es decir lo pasajeros que viajaban en primera tienen menos probabilidades de no sobrevivir. pasajeros de Pclass 3 multiplicarían por 3 sus probabilidades de no sobrevivir, esto tendría sentido y estaría asociado a los pasajeros que disponen de los peores camarotes que normalmente son los que se encuentran en las plantas inferiores del barco.
+* El ser hombre como vemos reduce las posibilidades de sobrevivir respecto al resto de factores ya que como vemos se representan por un valor muy bajo.
+* Los factores que tienen un impacto mayor (odd-ratio mayor) en la predicción de si sobrevivirían o no son la Edad y si tenían hermanos/as o esposas parece que incrementa las posibilidades de sobrevivir en el modelo. Por tanto, a mayor edad y mayor numero de hermanos/as o esposas/os se incrementan las posibilidades de sobrevivir
 
 
 ******
@@ -545,18 +551,19 @@ En este caso el área es de 0.855 por lo que podemos decir que el modelo discrim
 # Resolución del problema. A partir de los resultados obtenidos, ¿cuáles son las conclusiones? ¿Los resultados permiten responder al problema?
 ******
 
-A partir de los resultados obtenidos podemos llegar a las siguientes conclusiones:
-*Podemos destacar la correlación entre el sexo y supervivencia. El sexo parece un buen indicador. Ser mujer tiene una probabilidad de sobrevivir del 75%, al contrario que ser hombre que tiene una probabilidad baja.
-*La clase en la que se viajaba también parece ser determinante a la hora de sobrevivir. Pasajeros de primera clase tendrían mas posibilidades que los de peores clases.
-*La edad parece un factor también determinante, una mayor edad incrementa las posibilidades de sobrevivir.
-*Lo mismo ocurre en el caso de tener hermanos/as o esposas/os a bordo, parece que esto incrementan las posibilidades de sobrevivir.
+A partir de los resultados obtenidos podemos llegar a las siguientes conclusiones:  
+
+* Podemos destacar la correlación entre el sexo y supervivencia. El sexo parece un buen indicador. Ser mujer tiene una probabilidad de sobrevivir del 75%, al contrario que ser hombre que tiene una probabilidad baja.
+* La clase en la que se viajaba también parece ser determinante a la hora de sobrevivir. Pasajeros de primera clase tendrían mas posibilidades que los de peores clases.
+* La edad parece un factor también determinante, una mayor edad incrementa las posibilidades de sobrevivir.
+* Lo mismo ocurre en el caso de tener hermanos/as o esposas/os a bordo, parece que esto incrementan las posibilidades de sobrevivir.
 
 
 Para evaluar el modelo, decidimos ponerlo en practica con el dataset de prueba.
 
 
 ```{r,eval=TRUE,echo=TRUE}
-train <- read.csv('test.csv')
+train <- read.csv('test.csv', stringsAsFactors = FALSE)
 my_newdata <- train
 ```
 Cargo el datset de los pasajeros del conjunto de test para evaluar si sobreviven al naufragio o no
@@ -619,10 +626,19 @@ predict_value
 
 
 ```{r,eval=TRUE,echo=TRUE}
-pronostico <- data.frame('Name' = train$Name,'Survived' = as.factor(predict_value))
+pronostico <- data.frame('PassengerId' = train$Name,'Survived' = as.factor(predict_value))
 head(pronostico)
 ```
 
+
+
+```{r,eval=TRUE,echo=TRUE}
+#escribimos en un archivo csv nuestra prediccion sobre los pasajeros del conjunto de entrenamiento
+write.csv(pronostico,"output.csv",sep=",")
+```
+
+
+Sería interesante calcular la ROC del conjunto de test, lamentablemente del lugar donde he descargado los datos https://www.kaggle.com/c/titanic, no disponemos de la columna Survived del dataset para realizar este cálculo.
 
 
 
